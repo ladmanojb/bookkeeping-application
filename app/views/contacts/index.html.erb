@@ -1,0 +1,23 @@
+<h1>Contact List</h1>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% @contacts.each_with_index do |contact, i| %>
+			<tr>
+	      <th scope="row"><%=i + 1%></th>
+	      <td><%= link_to contact.name.to_s, contact_path(contact) %></td>
+	      <td><%= link_to contact.phone_number.to_s, contact_path(contact) %></td>
+        <td><%= link_to "Show contact", contact_path(contact)  %></td>
+          <td><%= link_to "Edit contact", edit_contact_path(contact) %></td>
+  	      <td><%= link_to "Delete contact", contact, method: :delete, data: { confirm: "Are you sure?" }  %></td>
+	    </tr>
+		<% end %>
+  </tbody>
+</table>
+

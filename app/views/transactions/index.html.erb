@@ -1,0 +1,42 @@
+<h1>Transaction List</h1>
+
+<%= form_tag(transactions_path, method: "get") do %>
+  <div class="input-group">
+    <%= select_tag :transaction_type, options_for_select(['Debit', 'Credit']), :include_blank => true %>
+    <%= submit_tag 'Filter By Transaction Type' %>
+  </div>
+<% end %>
+</br>
+<%= form_tag(transactions_path, method: "get") do %>
+  <div class="input-group">
+    <%= select_tag :contact_id, options_for_select(@contactsHash), :include_blank => true %>
+    <%= submit_tag 'Filter By Contact' %>
+  </div>
+<% end %>
+</br>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Amount</th>
+      <th>Transaction Type</th>
+      <th>Contact Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% @transactions.each_with_index do |transaction, i| %>
+			<tr>
+	      <th scope="row"><%=i + 1%></th>
+	      <td><%= link_to transaction.amount.to_s, transaction_path(transaction) %></td>
+	      <td><%= link_to transaction.transaction_type.to_s, transaction_path(transaction) %></td>
+	      <td><%= link_to transaction.contact_id.to_s, transaction_path(transaction) %></td>
+        <td><%= link_to "Show transaction", transaction_path(transaction)  %></td>
+          <td><%= link_to "Edit transaction", edit_transaction_path(transaction) %></td>
+  	      <td><%= link_to "Delete transaction", transaction, method: :delete, data: { confirm: "Are you sure?" }  %></td>
+	    </tr>
+		<% end %>
+  </tbody>
+</table>
+</br>
+<%= paginate @transactions %>
+

@@ -1,0 +1,22 @@
+<%= form_with(model: transaction) do |form| %>
+	<table>
+		<tr>
+			<td>
+				<%= form.label :amount %>
+				<%= form.number_field :amount %>
+			</td>
+			<td>
+				<%= form.label :transaction_type %>
+				<%= form.select :transaction_type, [:Debit, :Credit] %>
+			</td>
+			<td>
+				<%puts"------contactsHash---#{@contactsHash.inspect}-----"%>
+				<%= form.label :Contact %>
+				<%= form.select :contact_id, options_for_select(@contactsHash) %>
+			</td>
+			<td>
+				<%= form.submit %>
+			</td>
+		</tr>
+	</table>
+<% end %>
